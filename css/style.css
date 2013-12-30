@@ -4,7 +4,13 @@
 }
 
 img {
-  height: 200px;
+  max-height: 200px;
+}
+
+section {
+  display: inline-block;
+  margin: 20px;
+  vertical-align: top;
 }
 
 ul#stores li {

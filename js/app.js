@@ -2,7 +2,22 @@ App = Ember.Application.create();
 App.ApplicationAdapter = DS.RESTAdapter.extend();
 App.ApplicationAdapter.reopen({
   host: "http://localhost:3000",
-  corsWithCredentials: true
+  corsWithCredentials: true,
+  pathForType: function(type) {
+    if(type === "tinystore")
+      return "stores";
+    else
+      return Ember.String.pluralize(type);
+  }
+});
+
+App.ApplicationSerializer = DS.RESTSerializer.extend({
+    typeForRoot: function(root) {
+      if(root === "stores" || root === "store")
+        return "tinystore";
+      else
+        return Ember.String.singularize(root);
+    }
 });
 
 App.Router.map(function() {
