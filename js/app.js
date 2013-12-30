@@ -1,5 +1,9 @@
 App = Ember.Application.create();
-App.ApplicationAdapter = DS.FixtureAdapter.extend();
+App.ApplicationAdapter = DS.RESTAdapter.extend();
+App.ApplicationAdapter.reopen({
+  host: "http://localhost:3000",
+  corsWithCredentials: true
+});
 
 App.Router.map(function() {
   this.resource('stores', { path: "/" });
