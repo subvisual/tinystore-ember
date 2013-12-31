@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  script(type="text/x-handlebars" data-template-name="stores")
+    h1 TinyStore™
+
+    ul#stores
+    {{#each}}
+    {{#link-to 'tinystore' this tagName='li'}}{{name}}{{/link-to}}
+    {{/each}}
+
+  script(type="text/x-handlebars" data-template-name="tinystore")
+    h1 {{name}}
+    {{#each products}}
+    {{partial "product-info"}}
+    {{/each}}
+
+  script(type="text/x-handlebars" data-template-name="_product-info")
+    section
+      h1 {{name}}
+      | <img {{bind-attr src="image"}}>
+      p Price: {{price}}€
