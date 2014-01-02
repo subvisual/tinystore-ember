@@ -12,11 +12,12 @@ block content
   script(type="text/x-handlebars" data-template-name="tinystore")
     h1 {{name}}
     {{#each products}}
-    {{partial "product-info"}}
+    section
+      {{product-info product=this}}
+      | <button {{action 'markProduct' this}}>Mark</button>
     {{/each}}
 
-  script(type="text/x-handlebars" data-template-name="_product-info")
-    section
-      h1 {{name}}
-      | <img {{bind-attr src="image"}}>
-      p Price: {{price}}€
+  script(type="text/x-handlebars" data-template-name="components/product-info")
+    h1 {{product.name}}
+    | <img {{bind-attr src="product.image"}}>
+    p Price: {{product.price}}€

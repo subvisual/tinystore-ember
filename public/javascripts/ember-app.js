@@ -31,6 +31,18 @@ App.StoresRoute = Ember.Route.extend({
   }
 });
 
+App.TinystoreController = Ember.ObjectController.extend({
+  actions: {
+    markProduct: function(product) {
+      console.log("Marking product "+product.get('id')+": "+product.get('name'));
+    }
+  }
+});
+
+App.ProductInfoComponent = Ember.Component.extend({
+  tagName: ''
+});
+
 App.Tinystore = DS.Model.extend({
   name: DS.attr('string'),
   products: DS.hasMany('product', { async: true })
