@@ -5,17 +5,27 @@ block content
     h1 TinyStore™
 
     ul#stores
-    {{#each}}
-    {{#link-to 'tinystore' this tagName='li'}}{{name}}{{/link-to}}
-    {{/each}}
+      {{#each}}
+      {{#link-to 'tinystore' this tagName='li'}}{{name}}{{/link-to}}
+      {{/each}}
 
   script(type="text/x-handlebars" data-template-name="tinystore")
     h1 {{name}}
     {{#each products}}
     section
       {{product-info product=this}}
-      | <button {{action 'markProduct' this}}>Mark</button>
+      | <button {{bindAttr class="isMarked"}} {{action 'markProduct' this}}>{{possibleAction}}</button>
     {{/each}}
+    {{view App.MarkedProductsView}}
+
+  script(type="text/x-handlebars" data-template-name="product-actions")
+
+  script(type="text/x-handlebars" data-template-name="marked-products")
+    h2 Your Products
+    ul#marked-products
+      {{#each markedProducts}}
+      li {{name}}
+      {{/each}}
 
   script(type="text/x-handlebars" data-template-name="components/product-info")
     h1 {{product.name}}

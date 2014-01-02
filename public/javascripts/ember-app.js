@@ -32,11 +32,22 @@ App.StoresRoute = Ember.Route.extend({
 });
 
 App.TinystoreController = Ember.ObjectController.extend({
+  markedProducts: function() {
+    return this.get('products').filterProperty("marked");
+  }.property('products.@each.marked'),
+
   actions: {
     markProduct: function(product) {
-      console.log("Marking product "+product.get('id')+": "+product.get('name'));
+      if(product.get("marked"))
+        product.set("marked", false)
+      else
+        product.set("marked", true)
     }
   }
+});
+
+App.MarkedProductsView = Ember.View.extend({
+  templateName: 'marked-products',
 });
 
 App.ProductInfoComponent = Ember.Component.extend({
@@ -51,7 +62,14 @@ App.Tinystore = DS.Model.extend({
 App.Product = DS.Model.extend({
   name: DS.attr('string'),
   price: DS.attr('number'),
-  image: DS.attr('string')
+  image: DS.attr('string'),
+  marked: DS.attr('boolean'),
+  isMarked: function() {
+    return this.get('marked') ? 'unmark' : 'mark'
+  }.property('marked'),
+  possibleAction: function() {
+    return this.get('marked') ? 'UnMark' : 'Mark'
+  }.property('marked')
 });
 
 App.Product.FIXTURES = [
